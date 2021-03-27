@@ -14,8 +14,8 @@ services:
   backend:
     build:
       context: .
-      dockerfile: backend/Dockerfile      
-    container_name: myproject-backend  
+      dockerfile: backend/Dockerfile
+    container_name: myproject-backend
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       POSTGRES_NAME: postgres
@@ -28,3 +28,16 @@ services:
       - "8000:8000"
     depends_on:
       - db
+
+  vue:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: myproject-frontend
+    command: npm run serve
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
