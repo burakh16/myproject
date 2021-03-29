@@ -1,47 +1,43 @@
 <template>
-  <q-layout view="hHh lpR fFf">
-
-    <q-header reveal bordered class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="left = !left" />
-
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-          </q-avatar>
-          Title
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer show-if-above v-model="left" side="left" bordered>
-      <!-- drawer content -->
-    </q-drawer>
-
-    <q-page-container>
+  <div>
+    <component :is="this.$route.meta.layout || 'Default'">
       <router-view />
-    </q-page-container>
-
-    <q-footer bordered class="bg-grey-8 text-white">
-      <q-toolbar>
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-          </q-avatar>
-          Title
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-footer>
-
-  </q-layout>
+    </component>
+  </div>
 </template>
 
 <script>
+import Default from "@/layouts/Default.vue";
+import Main from "@/layouts/Main.vue";
+
 export default {
-  data () {
-    return {
-      left: false
-    }
-  }
-}
+  name: "App",
+
+  methods: {},
+  created() {},
+  components: {
+    Default,
+    Main,
+  },
+};
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.2s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: inherit;
+}
+</style>
