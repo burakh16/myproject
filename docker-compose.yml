@@ -10,7 +10,7 @@ services:
       POSTGRES_DB: db
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "5432:5433"
   backend:
     build:
       context: .
@@ -29,13 +29,14 @@ services:
     depends_on:
       - db
 
-  vue:
+  frontend:
     build:
       context: .
       dockerfile: frontend/Dockerfile
     container_name: myproject-frontend
-    command: npm run serve
+    #command: npm run serve
     volumes:
+      - /app/node_modules
       - ./frontend:/app
     ports:
       - "8080:8080"

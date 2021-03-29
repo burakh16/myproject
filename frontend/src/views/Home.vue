@@ -2,6 +2,7 @@
   <div class="home">
     <p>{{ $t("test") }}</p>
     <p>testtt</p>
+    <p>testtt</p>
     <router-view />
   </div>
 </template>
