@@ -1,8 +1,7 @@
 FROM python:3
 ENV   PYTHONUNBUFFERED 1
-RUN mkdir /app
-COPY backend/requirements.txt /app/
-RUN pip install -r app/requirements.txt
-COPY backend /app
 WORKDIR /app
+COPY backend/requirements.txt ./
+RUN pip install -r requirements.txt
+COPY backend .
 EXPOSE 8000

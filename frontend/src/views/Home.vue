@@ -1,8 +1,7 @@
 <template>
   <div class="home">
     <p>{{ $t("test") }}</p>
-    <p>testtt</p>
-    <p>testtt</p>
+   <h1>test</h1>
     <router-view />
   </div>
 </template>
