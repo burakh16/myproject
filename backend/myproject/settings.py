@@ -32,7 +32,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
 
+    'common',
     'users',
+    'organizations',
+    'projects',
 ]
 
 CORS_ALLOWED_ORIGINS = [

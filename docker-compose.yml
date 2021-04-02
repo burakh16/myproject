@@ -16,6 +16,7 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     container_name: myproject-backend
+    tty: true
     command: python manage.py runserver 0.0.0.0:8000
     environment:
       POSTGRES_NAME: postgres
@@ -28,7 +29,6 @@ services:
       - "8000:8000"
     depends_on:
       - db
-
   frontend:
     build:
       context: .
