@@ -6,5 +6,7 @@ module.exports = {
     },
   },
   transpileDependencies: ["quasar"],
-  lintOnSave: false
+  lintOnSave: false  ,
+  // assetsDir must match Django's STATIC_URL
+  assetsDir: 'static',
 };

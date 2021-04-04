@@ -1,8 +1,13 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <Navbar />
-    <q-drawer show-if-above v-model="left" side="left" bordered>
+    <q-drawer show-if-above :value="getSideBarActive" side="left" bordered>
       <!-- drawer content -->
+       <q-scroll-area class="fit">
+          <div class="q-pa-sm">
+            <div v-for="n in 50" :key="n">Drawer {{ n }} / 50</div>
+          </div>
+        </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
@@ -23,11 +28,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import Navbar from "@/components/layout/Navbar.vue";
 
 export default {
   components: {
     Navbar,
+  },
+  computed: {
+    ...mapGetters(["getSideBarActive"])
   },
 };
 </script>

@@ -1,3 +1,9 @@
 from django.contrib import admin
+from django_tenants.admin import TenantAdminMixin
 
-# Register your models here.
+from .models import Organization
+
+
+@admin.register(Organization)
+class OrganizationAdmin(TenantAdminMixin, admin.ModelAdmin):
+        list_display = ('name', 'paid_until')
