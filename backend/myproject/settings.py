@@ -50,6 +50,7 @@ SHARED_APPS = (
     'drf_yasg',
     'debug_toolbar',
     'organizations',  # you must list the app where your tenant model resides in
+    'users',
 )
 
 TENANT_APPS = (
@@ -63,30 +64,14 @@ TENANT_APPS = (
     'projects',
     'common',
     'users',
+    'core',
 )
 
 INSTALLED_APPS = list(SHARED_APPS) + \
     [app for app in TENANT_APPS if app not in SHARED_APPS]
 
-""" 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
 
-    'rest_framework',
-    'corsheaders',
-    'drf_yasg',
-
-    'common',
-    'users',
-    'organizations',
-    'projects',
-] 
-"""
+AUTH_USER_MODEL = "users.User"
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
@@ -198,7 +183,6 @@ STATICFILES_DIRS = [
 ]
 
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -209,3 +193,14 @@ REST_FRAMEWORK = {
 TENANT_MODEL = "organizations.Organization"  # app.Model
 
 TENANT_DOMAIN_MODEL = "organizations.Domain"  # app.Model
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "myprojectdemo.mail@gmail.com"  # sender's email-id
+EMAIL_HOST_PASSWORD = "myproject%11"  # password associated with above email-id
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
+

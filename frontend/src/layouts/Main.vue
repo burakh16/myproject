@@ -11,7 +11,9 @@
     </q-drawer>
 
     <q-page-container>
+      <div class="q-mt-xl">
       <router-view />
+      </div>
     </q-page-container>
 
     <q-footer bordered class="bg-grey-8 text-white">

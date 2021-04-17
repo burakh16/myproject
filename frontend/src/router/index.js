@@ -20,6 +20,15 @@ const routes = [
       import("../views/About.vue"),
   },
   {
+    path: "/organizations/new",
+    name: "NewOrganizations",
+    component: () =>
+      import("../views/NewOrganization.vue"),
+    meta: {
+      layout: "Main"
+    }
+  },
+  {
     path: "/login",
     name: "Login",
     component: () =>

@@ -29,12 +29,13 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
   frontend:
     build:
       context: .
       dockerfile: frontend/Dockerfile
     container_name: myproject-frontend
-    environment: 
+    environment:
       - CHOKIDAR_USEPOLLING=true
     #command: npm run serve
     volumes:
@@ -46,8 +47,18 @@ services:
       - backend
   redis:
     image: redis:alpine
-    container_name: myproject-redis
-    depends_on: 
+  celery:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: celery -A core worker -l INFO
+    environment:
+      POSTGRES_NAME: myprojectdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_HOST: db
+    volumes:
+      - ./backend:/app
+    depends_on:
       - backend
-
-
+      - redis

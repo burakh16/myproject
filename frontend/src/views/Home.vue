@@ -7,12 +7,12 @@
       <q-input
         outlined
         dense
-        v-model="text"
+        v-model="newOrganizationName"
         label="Enter organization name..."
         class="q-px-xl q-mt-md"
       >
         <template v-slot:after>
-          <q-btn color="primary" label="Start" />
+          <q-btn color="primary" label="Start" @click="onStartClicked()" />
         </template>
       </q-input>
     </div>
@@ -25,13 +25,22 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Home",
   components: {},
   data() {
     return {
-      text: "",
+      newOrganizationName: "",
     };
+  },
+  methods: {
+    ...mapActions(["createNewOrganization"]),
+    onStartClicked() {
+      this.$store.commit("SET_NEW_ORGANIZATION_NAME", this.newOrganizationName)
+      this.$router.push({ name: "NewOrganizations" });
+    },
   },
 };
 </script>
