@@ -4,10 +4,8 @@ services:
   db:
     image: postgres
     container_name: myproject-db
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: myproject
+    env_file:
+      - .env
     restart: unless-stopped
     ports:
       - "5432:5432"
@@ -18,11 +16,8 @@ services:
     container_name: myproject-backend
     tty: true
     command: python manage.py runserver 0.0.0.0:8000
-    environment:
-      POSTGRES_NAME: myproject
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_HOST: db
+    env_file:
+      - .env
     volumes:
       - ./backend:/app
     ports:
@@ -52,11 +47,8 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     command: celery -A core worker -l INFO
-    environment:
-      POSTGRES_NAME: myproject
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_HOST: db
+    env_file:
+      - .env
     volumes:
       - ./backend:/app
     depends_on:
