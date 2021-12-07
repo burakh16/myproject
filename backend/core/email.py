@@ -1,16 +1,17 @@
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+
 from celery import shared_task
 
 
 @shared_task
-def send():
+def send_email(content, to):
     try:
-        print("sending an email")
-        subject = 'welcome to GFG world'
-        """ message = f'Hi {user.username}, thank you for registering in geeksforgeeks.'
+        subject = 'Welcome to MyProject'
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = [user.email, ]
-        send_mail(subject, message, email_from, recipient_list) """
+        email = EmailMessage(subject, content, email_from, to,)
+        email.content_subtype = "html"
+        email.send()
+        print("sended mail")
     except Exception as e:
         print(e)

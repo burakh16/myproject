@@ -2,20 +2,16 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import vuetify from "./plugins/vuetify";
+import axios from "axios";
 
-import "./quasar";
-
-import  i18n  from '@/plugins/i18n'
-//import { Trans } from './plugins/Translation'
-
-//Vue.prototype.$i18nRoute = Trans.i18nRoute.bind(Trans)
+axios.defaults.baseURL = "http://localhost:8000/api/";
 
 Vue.config.productionTip = false;
-
 
 new Vue({
   router,
   store,
-  i18n,
+  vuetify,
   render: (h) => h(App),
 }).$mount("#app");

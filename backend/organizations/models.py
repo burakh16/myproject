@@ -2,6 +2,7 @@ from datetime import timedelta, date
 
 from django.db import models
 from django_tenants.models import TenantMixin, DomainMixin
+from django_tenants.utils import schema_context
 from rest_framework.exceptions import ValidationError
 
 from common.models import TimestampMixin
@@ -9,27 +10,28 @@ from users.models import User
 
 
 class OrganizationManager(models.Manager):
-    def create_organization(self, organization_name, username, name, email, password):
-        is_exist = self.filter(name=organization_name).exists()
+    
+    def create_organization(self, organization, username, name, email, password):
+        is_exist = self.filter(name=organization).exists()
         if is_exist:
             raise ValidationError("This organization already exist!")
-        tenant = Organization(schema_name=organization_name,
-                              name=organization_name,
+        tenant = Organization(schema_name=organization,
+                              name=organization,
                               paid_until=date.today() + timedelta(days=30),
                               on_trial=False)
-        # tenant.save()
+        tenant.save()
 
-        domain = Domain(domain=organization_name + '.localhost',
+        domain = Domain(domain=organization + '.localhost',
                         tenant=tenant,
                         is_primary=False)
 
-        domain.domain = 'my-domain.com'
         domain.tenant = tenant
         domain.is_primary = True
-        # domain.save()
-
-        # user = User.objects.create_user(
-        #   username=username, email=email, password=password, name=name, is_active=False)
+        domain.save()
+        password = ""
+        with schema_context(organization):
+            User.objects.create_user(
+                username=username, email=email, password=password, name=name, is_active=True)
 
 
 class Organization(TenantMixin):

@@ -1,21 +1,17 @@
 import axios from "axios";
-import baseUrl from "@/constants/config";
 
 const state = {
     currentOrganization: {},
-    newOrganizationName: ""
 };
 
 const getters = {
-    getCurrentOrganization: state => state.currentOrganization,
-    getnewOrganizationName: state => state.newOrganizationName
+    getCurrent: state => state.currentOrganization,
 };
 
 const actions = {
-    async createNewOrganization({ commit }, name) {
-        const response = await axios.post(baseUrl + "organizations/create-organization/", {name});
+    async createOrganization({ commit }, data) {
+        const response = await axios.post("organizations/create/", data);
         console.log(response);
-        commit("SET_ORGANIZATION", response)
     }
 };
 

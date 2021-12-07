@@ -1,43 +1,31 @@
 <template>
-  <div>
-    <component :is="this.$route.meta.layout || 'Default'">
-      <router-view />
-    </component>
-  </div>
+  <v-app>
+    <navbar />
+    <v-main  class="app">
+      <div class="container">
+        <router-view />
+      </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import Default from "@/layouts/Default.vue";
-import Main from "@/layouts/Main.vue";
+import navbar from "@/components/Navbar";
 
 export default {
   name: "App",
 
-  methods: {},
-  created() {},
+  data: () => ({
+    //
+  }),
   components: {
-    Default,
-    Main,
+    navbar,
   },
 };
 </script>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
-  transition-duration: 0.2s;
-  transition-property: opacity;
-  transition-timing-function: ease;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
-.content {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: inherit;
+.app {
+  background-color: #CFD8DC;
 }
 </style>
